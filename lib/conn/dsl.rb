@@ -35,11 +35,20 @@ module Conn
     end
 
     def ssh_try!(hostname)
+      Net::SSH.start(*to_ssh_config(hostname, timeout: 3)) do |ssh|
+        ssh.exec! 'uptime'
+      end
+    end
+
+    def ssh_try(hostname)
+      ssh_try!(hostname)
+    rescue => e
+      false
     end
 
     private
-    def to_ssh_config(hostname)
-      config = Net::SSH::Config.for(hostname)
+    def to_ssh_config(hostname, **opts)
+      config = Net::SSH::Config.for(hostname).merge(opts)
       user = config[:user] || Etc.getlogin
       [hostname, user, config]
     end
