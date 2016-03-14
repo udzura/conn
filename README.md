@@ -23,7 +23,7 @@ Or install it yourself as:
 ```ruby
 require 'conn'
 
-Conn.ssh "target.exapmle.jp" do |input|
+Conn.ssh "target.example.jp" do |input|
   input << "uptime"
   sleep 0.5
   input << "uname -a"
@@ -33,7 +33,7 @@ end
 
 include Conn::DSL
 
-ssh "target.exapmle.jp" do |input|
+ssh "target.example.jp" do |input|
   #...
 end
 ```
